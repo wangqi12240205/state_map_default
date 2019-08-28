@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 }
 else
 {
-  include 'COPEWELL_maps_newest.html';
+  include 'index.html';
 ?>
 
 <? 
