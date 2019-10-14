@@ -16,10 +16,51 @@
   <title>COPEWELL Maps</title>
   <meta name="description" content="U.S. county maps of COPEWELL domains and response">
   <meta name="viewport" content="width=device-width, initial-scale=1.00">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 
 <body onload="updateSlider()">
-<div id="content">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <a class="navbar-brand" href="#">COPEWELL</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+<div id="content" style="display: none">
   <div id="control">
     <script type="text/javascript">
         var upperSlider = 0;
@@ -50,24 +91,24 @@
     });
 </script>
 
-<table>
+<table  style="display: none">
   <tr class="rowButtons">
-    <td class="tdLabels">Uniform Event</td>
-    <td class="tdButtons"><button class="button" name="mapSelector" id="ResAbs_U" onclick="pushButton(this)">Resilience (abs)</button></td>
-    <td class="tdButtons"><button class="button" name="mapSelector" id="ResRel_U" onclick="pushButton(this)">Resilience (rel)</button></td>
-    <td class="tdButtons"><button class="button" name="mapSelector" id="Resistance_U" onclick="pushButton(this)">Resistance</button></td>
-    <td class="tdButtons"><button class="button" name="mapSelector" id="Recovery_U" onclick="pushButton(this)">Recovery</button></td>
-    <td class="tdButtons"><button class="button" name="mapSelector" id="PM_U"    onclick="pushButton(this)">PM</button></td>  <!--  Qi -->
-    <!-- <td class="tdButtons"><button class="button" name="mapSelector" id="CFt_U" onclick="pushButton(this)">CF[Time]</button></td> -->
-    <td class="tdLabels">Domains</td>
-    <td class="tdButtons"><button class="button" name="mapSelector" id="CF0"    onclick="pushButton(this)" title="Pre Community Functioning">CF0</button></td>
-    <td class="tdButtons"><button class="button" name="mapSelector" id="PR"    onclick="pushButton(this)">PR</button></td>  <!--  Qi -->
-    <td class="tdButtons"><button class="button" name="mapSelector" id="PVID"    onclick="pushButton(this)">PVID</button></td>  <!--  Qi -->
-    <td class="tdButtons"><button class="button" name="mapSelector" id="SC"    onclick="pushButton(this)">SC</button></td>  <!--  Qi -->
-    <td class="tdButtons"><button class="button" name="mapSelector" id="IR"    onclick="pushButton(this)">IR</button></td>  <!--  Qi -->
+    <!--<td class="tdLabels">Uniform Event</td>-->
+    <!--<td class="tdButtons"><button class="button" name="mapSelector" id="ResAbs_U" onclick="pushButton(this)">Resilience (abs)</button></td>-->
+    <!--<td class="tdButtons"><button class="button" name="mapSelector" id="ResRel_U" onclick="pushButton(this)">Resilience (rel)</button></td>-->
+    <!--<td class="tdButtons"><button class="button" name="mapSelector" id="Resistance_U" onclick="pushButton(this)">Resistance</button></td>-->
+    <!--<td class="tdButtons"><button class="button" name="mapSelector" id="Recovery_U" onclick="pushButton(this)">Recovery</button></td>-->
+    <!--<td class="tdButtons"><button class="button" name="mapSelector" id="PM_U"    onclick="pushButton(this)">PM</button></td>  &lt;!&ndash;  Qi &ndash;&gt;-->
+    <!--&lt;!&ndash; <td class="tdButtons"><button class="button" name="mapSelector" id="CFt_U" onclick="pushButton(this)">CF[Time]</button></td> &ndash;&gt;-->
+    <!--<td class="tdLabels">Domains</td>-->
+    <!--<td class="tdButtons"><button class="button" name="mapSelector" id="CF0"    onclick="pushButton(this)" title="Pre Community Functioning">CF0</button></td>-->
+    <!--<td class="tdButtons"><button class="button" name="mapSelector" id="PR"    onclick="pushButton(this)">PR</button></td>  &lt;!&ndash;  Qi &ndash;&gt;-->
+    <!--<td class="tdButtons"><button class="button" name="mapSelector" id="PVID"    onclick="pushButton(this)">PVID</button></td>  &lt;!&ndash;  Qi &ndash;&gt;-->
+    <!--<td class="tdButtons"><button class="button" name="mapSelector" id="SC"    onclick="pushButton(this)">SC</button></td>  &lt;!&ndash;  Qi &ndash;&gt;-->
+    <!--<td class="tdButtons"><button class="button" name="mapSelector" id="IR"    onclick="pushButton(this)">IR</button></td>  &lt;!&ndash;  Qi &ndash;&gt;-->
 
 
-  </tr>
+  <!--</tr>-->
   <tr class="rowButtons">
     <td class="tdLabels">Hurricane</td>
     <td class="tdButtons"><button class="button" name="mapSelector" id="ResAbs_H" onclick="pushButton(this)">Resilience (abs)</button></td>
@@ -83,7 +124,7 @@
   
 
 
-<div id="slidecontainer">
+<div id="slidecontainer" style="display: none">
   <!-- <p>Time: <span id="demoTime"></span> -->
     <!-- <input type="range" min="0" max="199" value="199" class="slider" id="sliderTime"> -->
       <!-- k: <span id="demoK"></span>
@@ -153,11 +194,180 @@
       <!-- beta: <span id="demoBeta"></span>
     <input type="range" min="0" max="0.15" value="0.06" class="slider" id="sliderBeta" step="any"> -->
     <!-- <button class="button" id="buttonCalculate" onclick="pushCal(this)">Select </button> -->
-    <button class="button" id="buttonCalculate" onclick=""> under construction </button>
+    <button class="button" id="buttonCalculate" onclick="" style="display: none"> under construction </button>
     <!-- <p>Event0: <span id="demoEvent0"></span>
 <input type="range" min="0" max="5" value="2" class="slider" id="sliderEvent0" step="any"> -->
 </div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-3" id="buttonArea">
+      <h3>See the map by states:</h3>
+      <button class="btn btn-lg btn-outline-secondary" href="#StateModal" data-toggle="modal">Select State</button>
+      <h3>See histogram by counties (Choose State First):</h3>
+      <button class="btn btn-lg btn-secondary" id="CountyButton" disabled onclick="alert('Under Construction')">Select County</button>
+      <br><br>
+      <table class="table table-borderless table-responsive fixed-table-body">
+        <tr class="rowButtons">
+          <td class="tdLabels">Uniform Event</td>
+        </tr>
+        <tr class="rowButtons">
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="ResAbs_U" onclick="pushButton(this)">Resilience (abs)</button></td>
+          <!--<td class="tdButtons"><button class="button" name="mapSelector" id="ResRel_U" onclick="pushButton(this)">Resilience (rel)</button></td>-->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="Resistance_U" onclick="pushButton(this)">Resistance</button></td>
+        </tr>
+        <tr class="rowButtons">
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="Recovery_U" onclick="pushButton(this)">Recovery</button></td>
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PM_U"    onclick="pushButton(this)">PM</button></td>  <!--  Qi -->
+        </tr>
+        <!--<tr class="rowButtons">-->
+          <!--&lt;!&ndash; <td class="tdButtons"><button class="button" name="mapSelector" id="CFt_U" onclick="pushButton(this)">CF[Time]</button></td> &ndash;&gt;-->
+        <!--</tr>-->
+        <tr class="rowButtons">
+          <td class="tdLabels">Domains</td>
+        </tr>
+        <tr class="rowButtons">
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="CF0"    onclick="pushButton(this)" title="Pre Community Functioning">Community Functioning</button></td>
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PR"    onclick="pushButton(this)">Preparedness</button></td>  <!--  Qi -->
+        </tr>
+        <tr class="rowButtons">
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PVID"    onclick="pushButton(this)">PVID</button></td>  <!--  Qi -->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="SC"    onclick="pushButton(this)">Social Cohesion</button></td>  <!--  Qi -->
+        </tr>
+        <!--<tr class="rowButtons">-->
+          <!--<td class="tdButtons"><button class="button" name="mapSelector" id="IR"    onclick="pushButton(this)">IR</button></td>  &lt;!&ndash;  Qi &ndash;&gt;-->
+        <!--</tr>-->
+      </table>
+    </div>
+    <div class="col-lg-9" id="MapArea">
+
+    </div>
+
+  </div>
+
+  <div>
+    <h1>Navigate Bar sticky to the top</h1>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <h1>Hello World</h1>
+  </div>
+
+</div>
+
+
+<!--State Modal-->
+<div class="modal fade" id="StateModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h3 class="modal-title">Select by State</h3>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table table-borderless table-dark table-responsive fixed-table-body table-sm">
+                <tbody>
+                  <tr>
+                    <td><button value="1" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">ALL</button></td>
+                    <td><button value="2" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Alabama</button></td>
+                    <td><button value="3" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Alaska</button></td>
+                    <td><button value="4" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">American Samoa</button></td>
+                  </tr>
+                  <tr>
+                    <td><button value="5" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">American Samoa</button></td>
+                    <td><button value="6" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Arizona</button></td>
+                    <td><button value="7" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Arkansas</button></td>
+                    <td><button value="8" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">California</button></td>
+                  </tr>
+                  <tr>
+                    <td><button value="9" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Canal Zone</button></td>
+                    <td><button value="10" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Colorado</button></td>
+                    <td><button value="11" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Connecticut</button></td>
+                    <td><button value="12" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Delaware</button></td>
+                  </tr>
+                  <tr>
+                    <td><button value="13" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">District Of Columbia</button></td>
+                    <td><button value="14" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Florida</button></td>
+                    <td><button value="15" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Georgia</button></td>
+                    <td><button value="16" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Guam</button></td>
+                  </tr>
+                  <tr>
+                    <td><button value="17" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Hawaii</button></td>
+                    <td><button value="18" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Idaho</button></td>
+                    <td><button value="19" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Illinois</button></td>
+                    <td><button value="20" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Indiana</button></td>
+                  </tr>
+                  <tr>
+                    <td><button value="21" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Iowa</button></td>
+                    <td><button value="22" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Kansas</button></td>
+                    <td><button value="23" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Kentucky</button></td>
+                    <td><button value="24" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Louisiana</button></td>
+                  </tr>
+                  <tr>
+                    <td><button value="25" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Maine</button></td>
+                    <td><button value="26" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Maryland</button></td>
+                    <td><button value="27" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Massachusetts</button></td>
+                    <td><button value="28" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Michigan</button></td>
+                  </tr>
+                  <tr>
+                    <td><button value="29" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Minnesota</button></td>
+                    <td><button value="30" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Mississippi</button></td>
+                    <td><button value="31" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Missouri</button></td>
+                    <td><button value="32" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Montana</button></td>
+                  </tr>
+                  <tr>
+                    <td><button value="33" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Nebraska</button></td>
+                    <td><button value="34" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Nevada</button></td>
+                    <td><button value="35" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">New Hampshire</button></td>
+                    <td><button value="36" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">New Jersey</button></td>
+                  </tr>
+                  <tr>
+                    <td><button value="37" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">New Mexico</button></td>
+                    <td><button value="38" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">New York</button></td>
+                    <td><button value="39" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">North Carolina</button></td>
+                    <td><button value="40" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">North Dakota</button></td>
+                  </tr>
+                  <tr>
+                    <td><button value="41" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Ohio</button></td>
+                    <td><button value="42" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Oklahoma</button></td>
+                    <td><button value="43" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Oregon</button></td>
+                    <td><button value="44" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Pennsylvania</button></td>
+                  </tr>
+                  <tr>
+                    <td><button value="45" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Puerto Rico</button></td>
+                    <td><button value="46" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Rhode Island</button></td>
+                    <td><button value="47" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">South Carolina</button></td>
+                    <td><button value="48" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">South Dakota</button></td>
+                  </tr>
+                  <tr>
+                    <td><button value="49" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Tennessee</button></td>
+                    <td><button value="50" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Texas</button></td>
+                    <td><button value="51" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Utah</button></td>
+                    <td><button value="52" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Vermont</button></td>
+                  </tr>
+                  <tr>
+                    <td><button value="53" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Virginia</button></td>
+                    <td><button value="54" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Virgin Islands</button></td>
+                    <td><button value="55" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Washington</button></td>
+                    <td><button value="56" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">West Virginia</button></td>
+                  </tr>
+                  <tr>
+                    <td><button value="57" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Wisconsin</button></td>
+                    <td><button value="58" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Wyoming</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript">
   var maps = 0;
@@ -188,10 +398,11 @@
     .attr("class", "tooltip")               
     .style("opacity", 0);
 
-  var svg = d3.select("body").append("svg")
+  var svg = d3.select("#MapArea").append("svg")
     .attr("width", width)
     .attr("height", height)
     .style("margin", "10px auto");
+
 
   var buttonCal = document.getElementById("buttonCalculate")
   buttonCal.style.backgroundColor = "green";
@@ -205,6 +416,7 @@
   //Reading map file and data
 
   pushButton(document.getElementById("CF0"));
+
 
   //Adding legend for our Choropleth
 
@@ -245,6 +457,14 @@
       // return color ((rateById[d.id] - map.mapMinValue)/(map.mapMaxValue-map.mapMinValue+0.00001));
     });
   }
+
+  function selectState(n) {
+      document.getElementById("state").selectedIndex = n;
+      call_both();
+      $('#StateModal').modal('hide');
+      document.getElementById("CountyButton").disabled = false;
+  }
+
   function update(value,id){
     value = Number(value)
     console.log("update: " + value + id)
@@ -322,7 +542,7 @@
     upperSlider.setRange(mapTemp.minValue*0.8,mapTemp.maxValue*1.2) //midValue
     upperSlider.setValue(mapTemp.mapMaxValue);
     lowerSlider.setRange(mapTemp.minValue*0.8,mapTemp.maxValue*1.2) //midValue
-    lowerSlider.setValue(mapTemp.mapMinValue);   
+    lowerSlider.setValue(mapTemp.mapMinValue);
 
     legend.text("")
 
@@ -665,6 +885,7 @@
       })
     
       .style("opacity", 1.0)  // 0.8
+
 
     //Adding mouseevents
 
