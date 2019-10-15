@@ -20,6 +20,44 @@
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+  <!--Histogram scripts-->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <!--<script type="text/javascript" src="json/measures2018.json"></script>-->
+  <!--<script type="text/javascript" src="json/bigdomain2018.json"></script>-->
+  <!--<script type="text/javascript" src="json/smalldomain2018.json"></script>-->
+  <!--<script type="text/javascript" src="json/list_measure.json"></script>-->
+  <script>
+    $( document ).ready(function() {
+        queue()
+        .defer(function() {d3.json("json/measures2018.json", function(data) {
+              measures2018 = data;
+          })})
+        .defer(function() {d3.json("json/bigdomain2018.json", function(data) {
+              bigdomain2018 = data;
+          })})
+        .defer(function() {d3.json("json/smalldomain2018.json", function(data) {
+              smalldomain2018 = data;
+          })})
+        .defer(function() {d3.json("json/list_measure.json", function(data) {
+              list_measure = data;
+          })})
+        .await(iniHist);
+//        iniHist();
+    });
+
+    <!--function readJSONFiles() {-->
+        <!--measures2018 = d3.json("/json/measures2018.json");-->
+        <!--bigdomain2018 = d3.json("/json/bigdomain2018.json");-->
+        <!--smalldomain2018 = d3.json("/json/smalldomain2018.json");-->
+        <!--list_measure = d3.json("/json/list_measure.json");-->
+        <!--console.log(list_measure);-->
+    <!--}-->
+  </script>
+  <link   rel="stylesheet" type="text/css" href="css/dropdown.css"/>
+
+
 </head>
 
 <body onload="updateSlider()">
@@ -60,6 +98,37 @@
   </div>
 </nav>
 
+<!--HistBody-->
+<!--<div style="display: none">-->
+  <!--County FIPS: <input type="number" id="inputCountyFips" name="inputCountyFips" value = 1001 placeholder="County FIPS" min = 1000 max = 59999 >-->
+
+      <!--<p id="outputFips" color = "red"></p>-->
+
+  <!--Plot measure histogram<select name="selectDomain" id="selectDomain" onchange="changeSelectDomain();">-->
+      <!--<option value="">Select Domain</option>-->
+  <!--</select>-->
+
+
+  <!--<select name="selectSubdomain" id="selectSubdomain" onchange = "changeSelectSubdomain()">-->
+      <!--<option value="">Select Subdomain</option>-->
+  <!--</select>-->
+
+  <!--<select name="selectMeasure" id="selectMeasure" onclick= "changeSelectMeasure()">-->
+      <!--<option value="">Select Measure</option>-->
+  <!--</select>-->
+
+  <!--Plot aggregated magnitudes: <select name="selectCopewell" id="selectCopewell" onclick = "changeSelectCopewell()" >-->
+      <!--<option value="">Select COPEWELL output</option>-->
+  <!--</select>-->
+
+  <!--<select name="selectEvent" id="selectEvent" onclick = "changeSelectEvent()" value = "">-->
+      <!--<option value="">Select Event Size</option>-->
+      <!--<option value="Large event">Large event</option>-->
+      <!--<option value="Small event">Small event</option>-->
+  <!--</select>-->
+<!--</div>-->
+<!--HistBody End-->
+
 <div id="content" style="display: none">
   <div id="control">
     <script type="text/javascript">
@@ -89,6 +158,27 @@
         .nextAll(".output:first")
         .html(data.value.toFixed(3));
     });
+
+  function selectState(n) {
+//      d3.select('#divNational').remove();
+//      d3.select('#divState').remove();
+      document.getElementById("state").selectedIndex = n;
+      call_both();
+      $('#StateModal').modal('hide');
+      document.getElementById("CountyButton").disabled = false;
+      document.getElementById("divNational").style = "display:none";
+      document.getElementById("divState").style = "display:none";
+      document.getElementById("MapArea").style = "display:block";
+  }
+
+  function selectCounty(n) {
+    document.getElementById("inputCountyFips").value = n;
+    $("#CountyFcModal").modal();
+    $("#CountyModal").modal('hide');
+    document.getElementById("MapArea").style = "display:none";
+    document.getElementById("divNational").style = "display:blcok";
+    document.getElementById("divState").style = "display:block";
+  }
 </script>
 
 <table  style="display: none">
@@ -205,7 +295,7 @@
       <h3>See the map by states:</h3>
       <button class="btn btn-lg btn-outline-secondary" href="#StateModal" data-toggle="modal">Select State</button>
       <h3>See histogram by counties (Choose State First):</h3>
-      <button class="btn btn-lg btn-secondary" id="CountyButton" disabled onclick="alert('Under Construction')">Select County</button>
+      <button class="btn btn-lg btn-secondary" id="CountyButton" disabled href="#CountyModal" data-toggle="modal">Select County</button>
       <br><br>
       <table class="table table-borderless table-responsive fixed-table-body">
         <tr class="rowButtons">
@@ -218,7 +308,7 @@
         </tr>
         <tr class="rowButtons">
           <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="Recovery_U" onclick="pushButton(this)">Recovery</button></td>
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PM_U"    onclick="pushButton(this)">PM</button></td>  <!--  Qi -->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PM_U"    onclick="pushButton(this)">Prevention Mitigation</button></td>  <!--  Qi -->
         </tr>
         <!--<tr class="rowButtons">-->
           <!--&lt;!&ndash; <td class="tdButtons"><button class="button" name="mapSelector" id="CFt_U" onclick="pushButton(this)">CF[Time]</button></td> &ndash;&gt;-->
@@ -228,7 +318,7 @@
         </tr>
         <tr class="rowButtons">
           <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="CF0"    onclick="pushButton(this)" title="Pre Community Functioning">Community Functioning</button></td>
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PR"    onclick="pushButton(this)">Preparedness</button></td>  <!--  Qi -->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PR"    onclick="pushButton(this)">Preparedness and Response</button></td>  <!--  Qi -->
         </tr>
         <tr class="rowButtons">
           <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PVID"    onclick="pushButton(this)">PVID</button></td>  <!--  Qi -->
@@ -239,8 +329,14 @@
         <!--</tr>-->
       </table>
     </div>
-    <div class="col-lg-9" id="MapArea">
+    <div class="col-lg-9">
+      <div id="MapArea">
 
+      </div>
+
+      <div id="divNational"></div>
+
+      <div id="divState"></div>
     </div>
 
   </div>
@@ -253,6 +349,93 @@
 
 </div>
 
+
+<!--County Modal-->
+<div class="modal fade" id="CountyModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h3 class="modal-title">Select by County</h3>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table table-borderless table-dark table-responsive fixed-table-body table-sm">
+                <tbody id="CountyTable">
+                  <tr>
+                    <td><button value="1001" class="btn btn-dark btn-lg btn-block" onclick="selectCounty(this.value);iniHist()">County 1001</button></td>
+                    <td><button value="1002" class="btn btn-dark btn-lg btn-block" onclick="selectCounty(this.value);iniHist()">County 1002</button></td>
+                    <td><button value="1003" class="btn btn-dark btn-lg btn-block" onclick="selectCounty(this.value);iniHist()">County 1003</button></td>
+                    <td><button value="1004" class="btn btn-dark btn-lg btn-block" onclick="selectCounty(this.value);iniHist()">County 1004</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--County Function Modal-->
+<div class="modal fade" id="CountyFcModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h3 class="modal-title">Select Result to Display</h3>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <h4>County FIPS: </h4>
+              <input type="number" id="inputCountyFips" name="inputCountyFips" value = 1001 placeholder="County FIPS" min = 1000 max = 59999 >
+
+              <p id="outputFips" style="color: red" ></p>
+
+              <h4>Plot measure histogram</h4>
+              <select name="selectDomain" id="selectDomain" onchange="changeSelectDomain();">
+                  <option value="">Select Domain</option>
+              </select>
+              <br>
+              <select name="selectSubdomain" id="selectSubdomain" onchange = "changeSelectSubdomain()">
+                  <option value="">Select Subdomain</option>
+              </select>
+
+              <br>
+              <select name="selectMeasure" id="selectMeasure" onclick= "changeSelectMeasure()">
+                  <option value="">Select Measure</option>
+              </select>
+
+              <h4>Plot aggregated magnitudes: </h4>
+              <select name="selectCopewell" id="selectCopewell" onclick = "changeSelectCopewell()" >
+                  <option value="">Select COPEWELL output</option>
+              </select>
+
+              <br>
+              <select name="selectEvent" id="selectEvent" onclick = "changeSelectEvent()" value = "">
+                  <option value="">Select Event Size</option>
+                  <option value="Large event">Large event</option>
+                  <option value="Small event">Small event</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!--State Modal-->
 <div class="modal fade" id="StateModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
@@ -383,7 +566,7 @@
   var flcount = {}
 
   var selectRegion = document.getElementById("state").selectedIndex
-  selectRegion = 14;
+  selectRegion = 1;
   var color_domain     = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
   var ext_color_domain = [  0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
   var legend_labels    = ["0.20", "0.22", "0.24", "0.26", "0.28", "0.30", "0.32", "0.34", "0.36", "0.38", "0.40"]
@@ -456,13 +639,6 @@
       }
       // return color ((rateById[d.id] - map.mapMinValue)/(map.mapMaxValue-map.mapMinValue+0.00001));
     });
-  }
-
-  function selectState(n) {
-      document.getElementById("state").selectedIndex = n;
-      call_both();
-      $('#StateModal').modal('hide');
-      document.getElementById("CountyButton").disabled = false;
   }
 
   function update(value,id){
@@ -916,7 +1092,9 @@
         .await(Initialize); }
     else{
       // selectAll("path").remove.()
-      saveMapData(data)
+
+      saveMapData(data);
+
       var slider = document.getElementById("inputLower");
       slider.setAttribute("value",map.mapMinValue);
       slider.setAttribute("data-slider-range",map.minValue + "," + map.maxValue); //midValue
@@ -1189,6 +1367,296 @@ function fdW(t, W){
 
 </script>
 
+<script>
+
+
+//queue()
+//        .defer(function() {d3.json("json/measures2018.json", function(data) {
+//              measures2018 = data;
+//          })})
+//        .defer(function() {d3.json("json/bigdomain2018.json", function(data) {
+//              bigdomain2018 = data;
+//          })})
+//        .defer(function() {d3.json("json/smalldomain2018.json", function(data) {
+//              smalldomain2018 = data;
+//          })})
+//        .defer(function() {d3.json("json/list_measure.json", function(data) {
+//              list_measure = data;
+//          })})
+//        .await(iniHist);
+
+//d3.json("json/measures2018.json", function(data) {
+////    console.log(data);
+//    measures2018 = data;
+//});
+////  measures2018 = d3.json("/json/measures2018.json");
+////  console.log(measures2018);
+//d3.json("json/bigdomain2018.json", function(data) {
+////    console.log(data);
+//    bigdomain2018 = data;
+//});
+//d3.json("json/smalldomain2018.json", function(data) {
+////    console.log(data);
+//    smalldomain2018 = data;
+//});
+//d3.json("json/list_measure.json", function(data) {
+////    console.log(data);
+//    list_measure = data;
+//});
+////        console.log(list_measure);
+    var domains = []
+    var subdomains = {}
+    var measure_id = {}
+    var measure_des = {}
+    var rowsIgnore = ["nameState", "nameCounty", "abState"];
+    var State_county_pairs = {};
+
+function iniHist() {
+    console.log(list_measure);
+    selectDomain = document.getElementById('selectDomain');
+//    fips = 1001;
+
+            // console.log(list_measure[1])
+
+            for (var i in list_measure){
+                var measure = list_measure[i]
+                // console.log(measure)
+                key = measure.domain
+                if (!(domains.includes(measure.domain))) {
+                    domains.push(measure.domain)
+                    var opt = document.createElement('option');
+                    opt.value = measure.domain;
+                    opt.innerHTML = measure.domain;
+                    selectDomain.appendChild(opt);
+                    subdomains[key] = []
+
+                }
+                key_sub = measure.subdomain
+                if (!(subdomains[key].includes(measure.subdomain))) {
+                    subdomains[key].push(measure.subdomain)
+                    measure_id[key_sub] = []
+                    measure_des[key_sub] = []
+                }
+
+
+                if (!(measure_id[key_sub].includes(measure.id))){
+                   measure_id[key_sub].push(measure.id)
+                   measure_des[key_sub].push(measure.description)
+               }
+
+           }
+
+
+
+           for (var i in bigdomain2018) {
+            if (!rowsIgnore.includes(bigdomain2018[i].fips)) {
+                var newSelect = document.createElement('option');
+                selectHTML = "<option value='" + bigdomain2018[i].fips + "'>" + bigdomain2018[i].fips + "</option>";
+                newSelect.innerHTML = selectHTML;
+                document.getElementById('selectCopewell').add(newSelect);
+
+            }
+        }
+        }
+
+
+        // console.log(bigdomain2018)
+        // console.log(subdomains)
+        function changeSelectDomain() {
+            document.getElementById('selectCopewell').value = "";
+
+            var selectHTML = "";
+            var domain = document.getElementById("selectDomain").value;
+            var selectL = document.getElementById('selectSubdomain').options.length;
+            // console.log(selectL)
+            for (var i = 1; i < selectL; i++) {
+                document.getElementById('selectSubdomain').options.remove(1);
+
+            }
+            // console.log(document.getElementById('selectSubdomain').options)
+            subdomain = subdomains[domain]
+            for (var i = 0; i < subdomain.length; i++) {
+                var newSelect = document.createElement('option');
+                selectHTML = "<option value='" + subdomain[i] + "'>" + subdomain[i] + "</option>";
+                newSelect.innerHTML = selectHTML;
+                document.getElementById('selectSubdomain').add(newSelect);
+            }
+
+        }
+
+
+
+        function changeSelectSubdomain() {
+            document.getElementById('selectCopewell').value = "";
+
+            var selectHTML = "";
+            var subdomain = document.getElementById("selectSubdomain").value
+            var selectL = document.getElementById('selectMeasure').options.length;
+
+            for (var i = 1; i < selectL; i++) {
+                document.getElementById('selectMeasure').options.remove(1);
+
+            }
+            measure_name = measure_des[subdomain]
+            measure_index   = measure_id[subdomain]
+            // console.log(measure_index)
+            for (var i = 0; i < measure_name.length; i++) {
+                var newSelect = document.createElement('option');
+                selectHTML = "<option value='" + measure_index[i] + "'>" + measure_name[i] + "</option>";
+
+                newSelect.innerHTML = selectHTML;
+                newSelect.value =  measure_index[i];
+                document.getElementById('selectMeasure').add(newSelect);
+                    // console.log( newSelect)
+                }
+
+            }
+
+
+
+
+    // console.log(measures2018)
+        // console.log(measures2018)
+        function changeSelectMeasure(){
+            document.getElementById('selectCopewell').value = "";
+
+            measure_sel = document.getElementById('selectMeasure').value;
+            index = document.getElementById('selectMeasure').options.selectedIndex;
+            field_des = document.getElementById('selectMeasure').options[index].innerText;
+            fips = document.getElementById('inputCountyFips').value;
+
+            drawPlot(measures2018, measure_sel, fips, field_des);
+            // console.log(measure_des)
+
+        }
+
+        function drawPlot(plotData, fieldId, fips, field_des) {
+            console.log(field_des)
+        // console.log(fieldId)
+        var countyValue;
+        var plotNational = [];
+        var plotState = [];
+        stateId =  Math.floor(parseInt(fips, 10) / 1000);
+        for (var i in plotData) {
+            if (fieldId == plotData[i].fips) {
+
+                for(var j in plotData[i]) {
+                    if (j != "fips" && plotData[i][j] != "") {
+                        plotNational.push(parseFloat(plotData[i][j]));
+                        if (Math.floor(parseInt(j, 10) / 1000) == stateId)
+                            plotState.push(parseFloat(plotData[i][j]));
+                    }
+                    if (j == fips) {
+                        countyValue = plotData[i][j];
+                    }
+                }
+            }
+        }
+
+        if (countyValue == undefined) {
+            document.getElementById("outputFips").innerHTML = "Not a valid fips";
+            document.getElementById("outputFips").style.color = "#ff0000";
+
+        } else if (countyValue == "") {
+            document.getElementById("outputFips").innerHTML = "No data for this county";
+            document.getElementById("outputFips").style.color = "#ff0000";
+        } else {
+            document.getElementById("outputFips").innerHTML = "";
+        }
+        // console.log(stateId)
+
+        var traceNational = {
+            x: plotNational,
+            type: 'histogram',
+            name: 'National histogram'
+        };
+        var layout_nation = {title: "National distribution: " + field_des};
+        var dataNational = [traceNational];
+        Plotly.newPlot('divNational',dataNational , layout_nation, {showSendToCloud: true});
+        // console.log(plotState)
+        var traceState = {
+            x: plotState,
+            type: 'histogram',
+            name: 'State histogram',
+            // xbins: {
+            //     end: 1,
+            //     size: 0.015,
+            //     start: 0
+            // }
+
+        };
+        var dataState = [traceState];
+        var layout_state = {title: "State distribution: " + field_des};
+
+        if (countyValue != undefined) {
+            document.getElementById("divState").hidden = false;
+            Plotly.newPlot('divState',dataState , layout_state, {showSendToCloud: true});
+        }
+        else  document.getElementById("divState").hidden = true;
+        if (countyValue != undefined && countyValue != ""){plotCountyLine(countyValue,fips,countyValue);}
+    }
+
+    function plotCountyLine(countyValue,fips) {
+            var state_name;
+            var county_name;
+            state_name = bigdomain2018[2][fips];
+            county_name = bigdomain2018[1][fips];
+            legend_name = county_name + ", " + state_name;
+        // console.log(legend_name)
+        var refplot = document.getElementById('divNational');
+        var traceCountyNational = {
+          x: [parseFloat(countyValue), parseFloat(countyValue)],
+          y: refplot.layout.yaxis.range,
+          type: 'scatter',
+          name: legend_name
+      };
+      Plotly.addTraces('divNational',traceCountyNational);
+
+      var refplot2 = document.getElementById('divState');
+      var traceCountyState = {
+          x: [parseFloat(countyValue), parseFloat(countyValue)],
+          y: refplot2.layout.yaxis.range,
+          type: 'scatter',
+          name: legend_name
+      };
+      Plotly.addTraces('divState',traceCountyState);
+  }
+
+
+  function changeSelectCopewell(){
+    copewellOutput = document.getElementById('selectCopewell').value;
+    if (["Community Functioning", "Preparedness and Response", "Internal Resources", "Prevention Mitigation", "Population Vulnerability Inequality Deprivation", "Social Cohesion"].includes(copewellOutput))
+        changeSelectEvent();
+    else
+        document.getElementById('selectEvent').hidden = false;
+}
+
+  function changeSelectEvent(){
+      document.getElementById('selectDomain').value = "";
+      document.getElementById('selectSubdomain').value = "";
+      document.getElementById('selectMeasure').value = "";
+      event = document.getElementById('selectEvent').value;
+      document.getElementById('selectEvent').hidden = false;
+
+      copewellOutput = document.getElementById('selectCopewell').value;
+      fips = document.getElementById('inputCountyFips').value;
+      var plotNational = [];
+      var domain2018;
+      if (event == "Large event")
+          domain2018 = bigdomain2018;
+      else if (event == "Small event")
+          domain2018 = smalldomain2018;
+      if (["Community Functioning", "Preparedness and Response", "Internal Resources", "Prevention Mitigation", "Population Vulnerability Inequality Deprivation", "Social Cohesion"].includes(copewellOutput)) {
+          document.getElementById('selectEvent').value = "";
+          document.getElementById('selectEvent').hidden = true;
+          domain2018 = bigdomain2018;
+      }
+
+      drawPlot(domain2018, copewellOutput, fips,copewellOutput);
+  }
+
+
+  </script>
 
 </body>
 
