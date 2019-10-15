@@ -159,26 +159,6 @@
         .html(data.value.toFixed(3));
     });
 
-  function selectState(n) {
-//      d3.select('#divNational').remove();
-//      d3.select('#divState').remove();
-      document.getElementById("state").selectedIndex = n;
-      call_both();
-      $('#StateModal').modal('hide');
-      document.getElementById("CountyButton").disabled = false;
-      document.getElementById("divNational").style = "display:none";
-      document.getElementById("divState").style = "display:none";
-      document.getElementById("MapArea").style = "display:block";
-  }
-
-  function selectCounty(n) {
-    document.getElementById("inputCountyFips").value = n;
-    $("#CountyFcModal").modal();
-    $("#CountyModal").modal('hide');
-    document.getElementById("MapArea").style = "display:none";
-    document.getElementById("divNational").style = "display:blcok";
-    document.getElementById("divState").style = "display:block";
-  }
 </script>
 
 <table  style="display: none">
@@ -297,7 +277,8 @@
       <h3>See histogram by counties (Choose State First):</h3>
       <button class="btn btn-lg btn-secondary" id="CountyButton" disabled href="#CountyModal" onclick="updateCountyTable()" data-toggle="modal">Select County</button>
       <br><br>
-      <table class="table table-borderless table-responsive fixed-table-body">
+
+      <table class="table table-borderless table-responsive fixed-table-body" id="mapButtons">
         <tr class="rowButtons">
           <td class="tdLabels">Uniform Event</td>
         </tr>
@@ -638,6 +619,44 @@
 
 
 }
+
+ function selectState(n) {
+//      d3.select('#divNational').remove();
+//      d3.select('#divState').remove();
+  var stateSet = {}; 
+  stateSet[1] = "ALL";
+
+  for (var i in bigdomain2018[0]) {
+      if (i != "fips") {
+        stateFips = Math.floor(i/1000) + 1
+        if (!( stateFips in stateSet)) {
+          stateSet[stateFips] = bigdomain2018[0][i];
+        }
+      }
+  }
+      document.getElementById("state").selectedIndex = n;
+      document.getElementById("selectStateButton").innerText = stateSet[n];
+      document.getElementById("CountyButton").innerText = "Select County";
+      call_both();
+      $('#StateModal').modal('hide');
+      document.getElementById("CountyButton").disabled = false;
+      document.getElementById("divNational").style = "display:none";
+      document.getElementById("divState").style = "display:none";
+      document.getElementById("MapArea").style = "display:block";
+      document.getElementById("mapButtons").hidden = false;
+  }
+
+  function selectCounty(n) {
+    document.getElementById("inputCountyFips").value = n;
+    document.getElementById("CountyButton").innerText = bigdomain2018[1][n];
+    $("#CountyFcModal").modal();
+    $("#CountyModal").modal('hide');
+    document.getElementById("MapArea").style = "display:none";
+    document.getElementById("divNational").style = "display:blcok";
+    document.getElementById("divState").style = "display:block";
+    document.getElementById("mapButtons").hidden = true;
+
+  }
 
 function updateCountyTable() {
   selectRegion = document.getElementById("state").selectedIndex
