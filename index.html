@@ -293,9 +293,9 @@
   <div class="row">
     <div class="col-lg-3" id="buttonArea">
       <h3>See the map by states:</h3>
-      <button class="btn btn-lg btn-outline-secondary" href="#StateModal" data-toggle="modal">Select State</button>
+      <button id="selectStateButton" class="btn btn-lg btn-outline-secondary" onclick="updateStateTable() "href="#StateModal" data-toggle="modal">Select State</button>
       <h3>See histogram by counties (Choose State First):</h3>
-      <button class="btn btn-lg btn-secondary" id="CountyButton" disabled href="#CountyModal" data-toggle="modal">Select County</button>
+      <button class="btn btn-lg btn-secondary" id="CountyButton" disabled href="#CountyModal" onclick="updateCountyTable()" data-toggle="modal">Select County</button>
       <br><br>
       <table class="table table-borderless table-responsive fixed-table-body">
         <tr class="rowButtons">
@@ -365,10 +365,10 @@
               <table class="table table-borderless table-dark table-responsive fixed-table-body table-sm">
                 <tbody id="CountyTable">
                   <tr>
-                    <td><button value="1001" class="btn btn-dark btn-lg btn-block" onclick="selectCounty(this.value);iniHist()">County 1001</button></td>
+                    <!-- <td><button value="1001" class="btn btn-dark btn-lg btn-block" onclick="selectCounty(this.value);iniHist()">County 1001</button></td>
                     <td><button value="1002" class="btn btn-dark btn-lg btn-block" onclick="selectCounty(this.value);iniHist()">County 1002</button></td>
                     <td><button value="1003" class="btn btn-dark btn-lg btn-block" onclick="selectCounty(this.value);iniHist()">County 1003</button></td>
-                    <td><button value="1004" class="btn btn-dark btn-lg btn-block" onclick="selectCounty(this.value);iniHist()">County 1004</button></td>
+                    <td><button value="1004" class="btn btn-dark btn-lg btn-block" onclick="selectCounty(this.value);iniHist()">County 1004</button></td> -->
                   </tr>
                 </tbody>
               </table>
@@ -396,8 +396,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
-              <h4>County FIPS: </h4>
-              <input type="number" id="inputCountyFips" name="inputCountyFips" value = 1001 placeholder="County FIPS" min = 1000 max = 59999 >
+              <input type="number" id="inputCountyFips" name="inputCountyFips" value = 1001 placeholder="County FIPS" min = 1000 max = 59999  hidden="true">
 
               <p id="outputFips" style="color: red" ></p>
 
@@ -450,8 +449,8 @@
           <div class="row">
             <div class="col-md-12">
               <table class="table table-borderless table-dark table-responsive fixed-table-body table-sm">
-                <tbody>
-                  <tr>
+                <tbody id="StateTable">
+                  <!-- <tr>
                     <td><button value="1" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">ALL</button></td>
                     <td><button value="2" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Alabama</button></td>
                     <td><button value="3" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Alaska</button></td>
@@ -538,7 +537,7 @@
                   <tr>
                     <td><button value="57" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Wisconsin</button></td>
                     <td><button value="58" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">Wyoming</button></td>
-                  </tr>
+                  </tr> -->
                 </tbody>
               </table>
             </div>
@@ -600,7 +599,6 @@
 
   pushButton(document.getElementById("CF0"));
 
-
   //Adding legend for our Choropleth
 
   var legend = svg.selectAll("g.legend")
@@ -609,6 +607,65 @@
     .attr("class", "legend");
 
   //Called after slider adjustment
+
+
+  function updateStateTable() {
+       var newtable = document.getElementById("StateTable");;
+       newtable.innerHTML=''
+  var stateSet = {}; 
+
+  for (var i in bigdomain2018[0]) {
+      if (i != "fips") {
+        if (!(bigdomain2018[0][i] in stateSet)) {
+          stateSet[bigdomain2018[0][i]] =Math.floor(i/1000) + 1;
+        }
+      }
+  }
+  row = newtable.insertRow();
+  var cell = row.insertCell(j);
+  cell.innerHTML = '<button value="1" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">ALL</button>';
+  var j = 1;
+  var row;
+      for (var stateName in stateSet) {
+        if (j == 0)
+           row = newtable.insertRow();
+
+        var cell = row.insertCell(j);
+        cell.innerHTML = '<button value="'+stateSet[stateName] +'" class="btn btn-dark btn-lg btn-block" onclick="selectState(this.value);">'+ stateName + '</button>';
+        
+        j = (j + 1) % 4;
+      }
+
+
+}
+
+function updateCountyTable() {
+  selectRegion = document.getElementById("state").selectedIndex
+       var newtable = document.getElementById("CountyTable");;
+       newtable.innerHTML=''
+  var countySet = {}; 
+
+  for (var i in bigdomain2018[1]) {
+      if (i != "fips") {
+        if (selectRegion == 1 | Math.floor(i/1000) + 1 == selectRegion) {
+          countySet[bigdomain2018[1][i]] = i;
+        }
+      }
+  }
+    var j = 0;
+  var row;
+      for (var countyName in countySet) {
+        if (j == 0)
+           row = newtable.insertRow();
+
+        var cell = row.insertCell(j);
+        cell.innerHTML = '<button value="'+countySet[countyName] +'" class="btn btn-dark btn-lg btn-block" onclick="selectCounty(this.value);iniHist();">'+ countyName + '</button>';
+    
+        j = (j + 1) % 4;
+      }
+
+
+}
 
   function updateState(error, us) {
     selectRegion = document.getElementById("state").selectedIndex
