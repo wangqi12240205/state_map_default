@@ -291,7 +291,7 @@
 
       <table class="table table-borderless table-responsive fixed-table-body" id="mapButtons">
         <tr class="rowButtons">
-          <td class="tdLabels">Uniform Event</td>
+          <td class="tdLabels">Response to Uniform Event</td>
         </tr>
         <tr class="rowButtons">
           <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="ResAbs_U" onclick="pushButton(this)">Resilience (abs)</button></td>
@@ -300,7 +300,7 @@
         </tr>
         <tr class="rowButtons">
           <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="Recovery_U" onclick="pushButton(this)">Recovery</button></td>
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PM_U"    onclick="pushButton(this)">Prevention Mitigation</button></td>  <!--  Qi -->
+            <!--  Qi -->
         </tr>
         <!--<tr class="rowButtons">-->
           <!--&lt;!&ndash; <td class="tdButtons"><button class="button" name="mapSelector" id="CFt_U" onclick="pushButton(this)">CF[Time]</button></td> &ndash;&gt;-->
@@ -316,13 +316,17 @@
           <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PVID"    onclick="pushButton(this)">PVID</button></td>  <!--  Qi -->
           <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="SC"    onclick="pushButton(this)">Social Cohesion</button></td>  <!--  Qi -->
         </tr>
+        <tr class="rowButtons">
+        <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PM_U"    onclick="pushButton(this)">Prevention Mitigation</button></td>
+        <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="IR"    onclick="pushButton(this)">Internal Resources</button></td>
+        </tr>
         <!--<tr class="rowButtons">-->
           <!--<td class="tdButtons"><button class="button" name="mapSelector" id="IR"    onclick="pushButton(this)">IR</button></td>  &lt;!&ndash;  Qi &ndash;&gt;-->
         <!--</tr>-->
       </table>
       <table class="table table-borderless table-responsive fixed-table-body" id="histButtons" hidden>
         <tr class="rowButtons">
-          <td class="tdLabels">Uniform Event</td>
+          <td class="tdLabels">Response to Uniform Event</td>
         </tr>
         <tr class="rowButtons">
           <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="ResAbs_U_hist" value="abs_Resilience" onclick="changeSelectCopewellButton(this.value)">Resilience (abs)</button></td>
@@ -331,7 +335,7 @@
         </tr>
         <tr class="rowButtons">
           <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="Recovery_U_hist" value="Recovery" onclick="changeSelectCopewellButton(this.value)">Recovery</button></td>
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PM_U_hist" value="Prevention Mitigation" onclick="changeSelectCopewellButton(this.value)">Prevention Mitigation</button></td>  <!--  Qi -->
+          
         </tr>
         <!--<tr class="rowButtons">-->
           <!--&lt;!&ndash; <td class="tdButtons"><button class="button" name="mapSelector" id="CFt_U" onclick="pushButton(this)">CF[Time]</button></td> &ndash;&gt;-->
@@ -347,6 +351,11 @@
           <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PVID_hist" value="Population Vulnerability Inequality Deprivation" onclick="changeSelectCopewellButton(this.value)">PVID</button></td>  <!--  Qi -->
           <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="SC_hist" value="Social Cohesion" onclick="changeSelectCopewellButton(this.value)">Social Cohesion</button></td>  <!--  Qi -->
         </tr>
+        <tr class="rowButtons">
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PM_U_hist" value="Prevention Mitigation" onclick="changeSelectCopewellButton(this.value)">Prevention Mitigation</button></td>  <!--  Qi -->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="IR_hist" value="Internal Resources" onclick="changeSelectCopewellButton(this.value)">Internal Resources</button></td>  <!--  Qi -->
+        </tr>
+
       </table>
     </div>
     <div class="col-lg-9">
