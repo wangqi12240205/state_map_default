@@ -57,6 +57,16 @@
   </script>
   <link   rel="stylesheet" type="text/css" href="css/dropdown.css"/>
 
+  <script>
+    function reload() {
+      window.location = 'https://engineering.jhu.edu/tak/COPEWELL/index.html?t=' + Math.random();
+    }
+
+    function submitSubDomain() {
+      changeSelectMeasure();
+    }
+  </script>
+
 
 </head>
 
@@ -71,10 +81,10 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" onclick="reload()" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="https://www.jhsph.edu/research/affiliated-programs/copewell/the-copewell-model/index.html">Link</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -273,9 +283,10 @@
   <div class="row">
     <div class="col-lg-3" id="buttonArea">
       <h3>See the map by states:</h3>
-      <button id="selectStateButton" class="btn btn-lg btn-outline-secondary" onclick="updateStateTable() "href="#StateModal" data-toggle="modal">Select State</button>
+      <button id="selectStateButton" class="btn btn-lg btn-outline-secondary" onclick="updateStateTable() " href="#StateModal" data-toggle="modal">Select State</button>
       <h3>See histogram by counties (Choose State First):</h3>
       <button class="btn btn-lg btn-secondary" id="CountyButton" disabled href="#CountyModal" onclick="updateCountyTable()" data-toggle="modal">Select County</button>
+      <button class="btn btn-lg btn-outline-primary" id="CountyButtonSub" disabled href="#CountyFcModal" data-toggle="modal">Subdomains or Measures</button>
       <br><br>
 
       <table class="table table-borderless table-responsive fixed-table-body" id="mapButtons">
@@ -309,6 +320,34 @@
           <!--<td class="tdButtons"><button class="button" name="mapSelector" id="IR"    onclick="pushButton(this)">IR</button></td>  &lt;!&ndash;  Qi &ndash;&gt;-->
         <!--</tr>-->
       </table>
+      <table class="table table-borderless table-responsive fixed-table-body" id="histButtons" hidden>
+        <tr class="rowButtons">
+          <td class="tdLabels">Uniform Event</td>
+        </tr>
+        <tr class="rowButtons">
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="ResAbs_U_hist" value="abs_Resilience" onclick="changeSelectCopewellButton(this.value)">Resilience (abs)</button></td>
+          <!--<td class="tdButtons"><button class="button" name="mapSelector" id="ResRel_U" onclick="pushButton(this)">Resilience (rel)</button></td>-->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="Resistance_U_hist" value="Resistance" onclick="changeSelectCopewellButton(this.value)">Resistance</button></td>
+        </tr>
+        <tr class="rowButtons">
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="Recovery_U_hist" value="Recovery" onclick="changeSelectCopewellButton(this.value)">Recovery</button></td>
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PM_U_hist" value="Prevention Mitigation" onclick="changeSelectCopewellButton(this.value)">Prevention Mitigation</button></td>  <!--  Qi -->
+        </tr>
+        <!--<tr class="rowButtons">-->
+          <!--&lt;!&ndash; <td class="tdButtons"><button class="button" name="mapSelector" id="CFt_U" onclick="pushButton(this)">CF[Time]</button></td> &ndash;&gt;-->
+        <!--</tr>-->
+        <tr class="rowButtons">
+          <td class="tdLabels">Domains</td>
+        </tr>
+        <tr class="rowButtons">
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="CF0_hist" value="Community Functioning" onclick="changeSelectCopewellButton(this.value)" title="Pre Community Functioning">Community Functioning</button></td>
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PR_hist" value="Preparedness and Response" onclick="changeSelectCopewellButton(this.value)">Preparedness and Response</button></td>  <!--  Qi -->
+        </tr>
+        <tr class="rowButtons">
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PVID_hist" value="Population Vulnerability Inequality Deprivation" onclick="changeSelectCopewellButton(this.value)">PVID</button></td>  <!--  Qi -->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="SC_hist" value="Social Cohesion" onclick="changeSelectCopewellButton(this.value)">Social Cohesion</button></td>  <!--  Qi -->
+        </tr>
+      </table>
     </div>
     <div class="col-lg-9">
       <div id="MapArea">
@@ -322,11 +361,6 @@
 
   </div>
 
-  <div>
-    <h1>Navigate Bar sticky to the top</h1>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <h1>Hello World</h1>
-  </div>
 
 </div>
 
@@ -370,14 +404,14 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-          <h3 class="modal-title">Select Result to Display</h3>
+          <h3 class="modal-title">Select Domains and Measures</h3>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
-              <input type="number" id="inputCountyFips" name="inputCountyFips" value = 1001 placeholder="County FIPS" min = 1000 max = 59999  hidden="true">
+              <input type="number" id="inputCountyFips" name="inputCountyFips" value = 1001 placeholder="County FIPS" min = 1000 max = 59999 hidden>
 
               <p id="outputFips" style="color: red" ></p>
 
@@ -391,27 +425,29 @@
               </select>
 
               <br>
-              <select name="selectMeasure" id="selectMeasure" onclick= "changeSelectMeasure()">
+              <select name="selectMeasure" id="selectMeasure">
                   <option value="">Select Measure</option>
               </select>
 
-              <h4>Plot aggregated magnitudes: </h4>
-              <select name="selectCopewell" id="selectCopewell" onclick = "changeSelectCopewell()" >
-                  <option value="">Select COPEWELL output</option>
-              </select>
+              <div hidden>
+                <h4>Plot aggregated magnitudes: </h4>
+                <select name="selectCopewell" id="selectCopewell" onclick = "changeSelectCopewell()" >
+                    <option value="">Select COPEWELL output</option>
+                </select>
 
-              <br>
-              <select name="selectEvent" id="selectEvent" onclick = "changeSelectEvent()" value = "">
-                  <option value="">Select Event Size</option>
-                  <option value="Large event">Large event</option>
-                  <option value="Small event">Small event</option>
-              </select>
+                <br>
+                <select name="selectEvent" id="selectEvent" onclick = "changeSelectEvent()" value = "">
+                    <option value="">Select Event Size</option>
+                    <option value="Large event">Large event</option>
+                    <option value="Small event">Small event</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="submitSubDomain()" data-dismiss="modal">Submit & Close</button>
       </div>
     </div>
   </div>
@@ -644,17 +680,21 @@
       document.getElementById("divState").style = "display:none";
       document.getElementById("MapArea").style = "display:block";
       document.getElementById("mapButtons").hidden = false;
+      document.getElementById("histButtons").hidden = true;
+      document.getElementById("CountyButtonSub").disabled = true;
   }
 
   function selectCounty(n) {
     document.getElementById("inputCountyFips").value = n;
     document.getElementById("CountyButton").innerText = bigdomain2018[1][n];
-    $("#CountyFcModal").modal();
+    // $("#CountyFcModal").modal();
     $("#CountyModal").modal('hide');
     document.getElementById("MapArea").style = "display:none";
     document.getElementById("divNational").style = "display:blcok";
     document.getElementById("divState").style = "display:block";
     document.getElementById("mapButtons").hidden = true;
+    document.getElementById("histButtons").hidden = false;
+    document.getElementById("CountyButtonSub").disabled = false;
 
   }
 
@@ -1698,21 +1738,29 @@ function iniHist() {
       Plotly.addTraces('divState',traceCountyState);
   }
 
+  function changeSelectCopewellButton(n) {
+    document.getElementById('selectCopewell').value = n;
+    changeSelectCopewell();
+  }
 
-  function changeSelectCopewell(){
+  function changeSelectCopewell() {
     copewellOutput = document.getElementById('selectCopewell').value;
     if (["Community Functioning", "Preparedness and Response", "Internal Resources", "Prevention Mitigation", "Population Vulnerability Inequality Deprivation", "Social Cohesion"].includes(copewellOutput))
-        changeSelectEvent();
+      changeSelectEvent();
     else
-        document.getElementById('selectEvent').hidden = false;
-}
+      // document.getElementById('selectEvent').hidden = false;
+      changeSelectEvent();
+  }
+
 
   function changeSelectEvent(){
       document.getElementById('selectDomain').value = "";
       document.getElementById('selectSubdomain').value = "";
       document.getElementById('selectMeasure').value = "";
+      document.getElementById('selectEvent').value = "Large event";
       event = document.getElementById('selectEvent').value;
-      document.getElementById('selectEvent').hidden = false;
+      // event = "Large event";
+      // document.getElementById('selectEvent').hidden = false;
 
       copewellOutput = document.getElementById('selectCopewell').value;
       fips = document.getElementById('inputCountyFips').value;
