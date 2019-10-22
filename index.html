@@ -282,78 +282,87 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-3" id="buttonArea">
-      <h3>See the map by states:</h3>
+      <h4>See the map by states:</h4>
       <button id="selectStateButton" class="btn btn-lg btn-outline-secondary" onclick="updateStateTable() " href="#StateModal" data-toggle="modal">Select State</button>
-      <h3>See histogram by counties (Choose State First):</h3>
+      <h4>See histogram by counties (Choose State First):</h4>
       <button class="btn btn-lg btn-secondary" id="CountyButton" disabled href="#CountyModal" onclick="updateCountyTable()" data-toggle="modal">Select County</button>
       <button class="btn btn-lg btn-outline-primary" id="CountyButtonSub" disabled href="#CountyFcModal" data-toggle="modal">Subdomains or Measures</button>
       <br><br>
 
+<!-- <tr class="rowButtons"> -->
+          <!-- <td class="tdLabels"> -->
+            <h4>Response to Uniform Event</h4>
+          <!-- </td> -->
+        <!-- </tr> -->
       <table class="table table-borderless table-responsive fixed-table-body" id="mapButtons">
+        
         <tr class="rowButtons">
-          <td class="tdLabels">Response to Uniform Event</td>
-        </tr>
-        <tr class="rowButtons">
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="ResAbs_U" onclick="pushButton(this)">Resilience (abs)</button></td>
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="ResAbs_U" onclick="pushButton(this)">RESILIENCE</button></td>
           <!--<td class="tdButtons"><button class="button" name="mapSelector" id="ResRel_U" onclick="pushButton(this)">Resilience (rel)</button></td>-->
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="Resistance_U" onclick="pushButton(this)">Resistance</button></td>
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="Resistance_U" onclick="pushButton(this)">RESISTANCE</button></td>
         </tr>
         <tr class="rowButtons">
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="Recovery_U" onclick="pushButton(this)">Recovery</button></td>
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="Recovery_U" onclick="pushButton(this)">RECOVERY</button></td>
             <!--  Qi -->
         </tr>
         <!--<tr class="rowButtons">-->
           <!--&lt;!&ndash; <td class="tdButtons"><button class="button" name="mapSelector" id="CFt_U" onclick="pushButton(this)">CF[Time]</button></td> &ndash;&gt;-->
         <!--</tr>-->
         <tr class="rowButtons">
-          <td class="tdLabels">Domains</td>
+          <td class="tdLabels">
+            <h4>Domains</h4>
+            </td>
         </tr>
         <tr class="rowButtons">
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="CF0"    onclick="pushButton(this)" title="Pre Community Functioning">Community Functioning</button></td>
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PR"    onclick="pushButton(this)">Preparedness and Response</button></td>  <!--  Qi -->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="CF0"    onclick="pushButton(this)" title="Pre Community Functioning">COMMUNITY FUNCTIONING</button></td>
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PR"    onclick="pushButton(this)">PREPAREDNESS AND RESPONSE</button></td>  <!--  Qi -->
         </tr>
         <tr class="rowButtons">
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PVID"    onclick="pushButton(this)">Population Factors</button></td>  <!--  Qi -->
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="SC"    onclick="pushButton(this)">Social Capital and Cohesion</button></td>  <!--  Qi -->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PVID"    onclick="pushButton(this)">POPULATION FACTORS</button></td>  <!--  Qi -->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="SC"    onclick="pushButton(this)">SOCIAL CAPITAL AND COHESION</button></td>  <!--  Qi -->
         </tr>
         <tr class="rowButtons">
-        <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PM_U"    onclick="pushButton(this)">Prevention Mitigation</button></td>
-        <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="IR"    onclick="pushButton(this)">Resources for Recovery</button></td>
+        <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PM_U"    onclick="pushButton(this)">PREVENTION AND MITIGATION</button></td>
+        <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="IR"    onclick="pushButton(this)">RESOURCES FOR RECOVERY</button></td>
         </tr>
         <!--<tr class="rowButtons">-->
           <!--<td class="tdButtons"><button class="button" name="mapSelector" id="IR"    onclick="pushButton(this)">IR</button></td>  &lt;!&ndash;  Qi &ndash;&gt;-->
         <!--</tr>-->
       </table>
       <table class="table table-borderless table-responsive fixed-table-body" id="histButtons" hidden>
+        <!-- <tr class="rowButtons"> -->
+          <!-- <td class="tdLabels"> -->
+            <!-- <h4>Response to Uniform Event</h4> -->
+          <!-- Response to Uniform Event</td> -->
+        <!-- </tr> -->
         <tr class="rowButtons">
-          <td class="tdLabels">Response to Uniform Event</td>
-        </tr>
-        <tr class="rowButtons">
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="ResAbs_U_hist" value="abs_Resilience" onclick="changeSelectCopewellButton(this.value)">Resilience (abs)</button></td>
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="ResAbs_U_hist" value="Resilience" onclick="changeSelectCopewellButton(this.value)">RESILIENCE</button></td>
           <!--<td class="tdButtons"><button class="button" name="mapSelector" id="ResRel_U" onclick="pushButton(this)">Resilience (rel)</button></td>-->
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="Resistance_U_hist" value="Resistance" onclick="changeSelectCopewellButton(this.value)">Resistance</button></td>
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="Resistance_U_hist" value="Resistance" onclick="changeSelectCopewellButton(this.value)">RESISTANCE</button></td>
         </tr>
         <tr class="rowButtons">
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="Recovery_U_hist" value="Recovery" onclick="changeSelectCopewellButton(this.value)">Recovery</button></td>
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="Recovery_U_hist" value="Recovery" onclick="changeSelectCopewellButton(this.value)">RECOVERY</button></td>
           
         </tr>
         <!--<tr class="rowButtons">-->
           <!--&lt;!&ndash; <td class="tdButtons"><button class="button" name="mapSelector" id="CFt_U" onclick="pushButton(this)">CF[Time]</button></td> &ndash;&gt;-->
         <!--</tr>-->
         <tr class="rowButtons">
-          <td class="tdLabels">Domains</td>
+          <td class="tdLabels">
+          <h4>Domains</h4>
+        </td>
         </tr>
         <tr class="rowButtons">
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="CF0_hist" value="Community Functioning" onclick="changeSelectCopewellButton(this.value)" title="Pre Community Functioning">Community Functioning</button></td>
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PR_hist" value="Preparedness and Response" onclick="changeSelectCopewellButton(this.value)">Preparedness and Response</button></td>  <!--  Qi -->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="CF0_hist" value="Community Functioning" onclick="changeSelectCopewellButton(this.value)" title="Pre Community Functioning">COMMUNITY FUNCTIONING</button></td>
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PR_hist" value="Preparedness and Response" onclick="changeSelectCopewellButton(this.value)">PREPAREDNESS AND RESPONSE</button></td>  <!--  Qi -->
         </tr>
         <tr class="rowButtons">
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PVID_hist" value="Population Factors" onclick="changeSelectCopewellButton(this.value)">Population Factors</button></td>  <!--  Qi -->
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="SC_hist" value="Social Capital and Cohesion" onclick="changeSelectCopewellButton(this.value)">Social Capital and Cohesion</button></td>  <!--  Qi -->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PVID_hist" value="Population Factors" onclick="changeSelectCopewellButton(this.value)">POPULATION FACTORS</button></td>  <!--  Qi -->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="SC_hist" value="Social Capital and Cohesion" onclick="changeSelectCopewellButton(this.value)">SOCIAL CAPITAL AND COHESION</button></td>  <!--  Qi -->
         </tr>
         <tr class="rowButtons">
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PM_U_hist" value="Prevention Mitigation" onclick="changeSelectCopewellButton(this.value)">Prevention Mitigation</button></td>  <!--  Qi -->
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="IR_hist" value="Resources for Recovery" onclick="changeSelectCopewellButton(this.value)">Resources for Recovery</button></td>  <!--  Qi -->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PM_U_hist" value="Prevention and Mitigation" onclick="changeSelectCopewellButton(this.value)">PREVENTION AND MITIGATION</button></td>  <!--  Qi -->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="IR_hist" value="Resources for Recovery" onclick="changeSelectCopewellButton(this.value)">RESOURCES FOR RECOVERY</button></td>  <!--  Qi -->
         </tr>
 
       </table>
@@ -1803,7 +1812,7 @@ function iniHist() {
 
   function changeSelectCopewell() {
     copewellOutput = document.getElementById('selectCopewell').value;
-    if (["Community Functioning", "Preparedness and Response", "Resources for Recovery", "Prevention Mitigation", "Population Factors", "Social Capital and Cohesion"].includes(copewellOutput))
+    if (["Community Functioning", "Preparedness and Response", "Resources for Recovery", "Prevention and Mitigation", "Population Factors", "Social Capital and Cohesion"].includes(copewellOutput))
       changeSelectEvent();
     else
       // document.getElementById('selectEvent').hidden = false;
@@ -1828,7 +1837,7 @@ function iniHist() {
           domain2018 = bigdomain2018;
       else if (event == "Small event")
           domain2018 = smalldomain2018;
-      if (["Community Functioning", "Preparedness and Response", "Resources for Recovery", "Prevention Mitigation", "Population Factors", "Social Capital and Cohesion"].includes(copewellOutput)) {
+      if (["Community Functioning", "Preparedness and Response", "Resources for Recovery", "Prevention and Mitigation", "Population Factors", "Social Capital and Cohesion"].includes(copewellOutput)) {
           document.getElementById('selectEvent').value = "";
           document.getElementById('selectEvent').hidden = true;
           domain2018 = bigdomain2018;
