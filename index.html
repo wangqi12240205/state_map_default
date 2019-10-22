@@ -1619,22 +1619,31 @@ function iniHist() {
             var selectL = document.getElementById('selectMeasure').options.length;
 
             for (var i = 1; i < selectL; i++) {
-                document.getElementById('selectMeasure').options.remove(1);
+              document.getElementById('selectMeasure').options.remove(1);
 
             }
             measure_name = measure_des[subdomain]
             measure_index   = measure_id[subdomain]
             // console.log(measure_index)
+            var newSelect = document.createElement('option');
+            selectHTML = "<option value='Subdomain'>Subdomain</option>";
+            newSelect.innerHTML = selectHTML;
+            var avg_value = 'Subdomain';
+            newSelect.value = avg_value;
+            document.getElementById('selectMeasure').add(newSelect);
+
             for (var i = 0; i < measure_name.length; i++) {
-                var newSelect = document.createElement('option');
-                selectHTML = "<option value='" + measure_index[i] + "'>" + measure_name[i] + "</option>";
+              var newSelect = document.createElement('option');
+              selectHTML = "<option value='" + measure_index[i] + "'>" + measure_name[i] + "</option>";
 
-                newSelect.innerHTML = selectHTML;
-                newSelect.value =  measure_index[i];
-                document.getElementById('selectMeasure').add(newSelect);
+              newSelect.innerHTML = selectHTML;
+              newSelect.value =  measure_index[i];
+              document.getElementById('selectMeasure').add(newSelect);
                     // console.log( newSelect)
-                }
-
+                  }
+                  document.getElementById('selectMeasure').value = avg_value;
+            // console.log(document.getElementById('selectMeasure').value)
+            changeSelectMeasure()
             }
 
 
@@ -1655,71 +1664,110 @@ function iniHist() {
 
         }
 
+        
+    
         function drawPlot(plotData, fieldId, fips, field_des) {
-            console.log(field_des)
+            console.log('drawPlot')
+            console.log(fieldId)
         // console.log(fieldId)
+
         var countyValue;
         var plotNational = [];
         var plotState = [];
         stateId =  Math.floor(parseInt(fips, 10) / 1000);
-        for (var i in plotData) {
-            if (fieldId == plotData[i].fips) {
 
-                for(var j in plotData[i]) {
-                    if (j != "fips" && plotData[i][j] != "") {
-                        plotNational.push(parseFloat(plotData[i][j]));
-                        if (Math.floor(parseInt(j, 10) / 1000) == stateId)
-                            plotState.push(parseFloat(plotData[i][j]));
-                    }
-                    if (j == fips) {
-                        countyValue = plotData[i][j];
-                    }
-                }
+        if (fieldId == 'Subdomain') {
+          var subdomain = document.getElementById("selectSubdomain").value
+          var options = document.getElementById('selectMeasure').options
+          var fips = document.getElementById('inputCountyFips').value;
+          var measureSet = new Set();
+          for (var i = 2; i < options.length; i++) {
+           measureSet.add(options[i].value );
+         }
+
+         for (var j in plotData[0]) {
+          if (j != "fips") {
+            var validMeasures = 0;
+            var validLength = 0;
+            for (var i in plotData) {
+              if (measureSet.has(i) && plotData[i][j] != "") {
+                validMeasures += parseFloat(plotData[i][j]);
+                validLength += 1;
+              }
             }
-        }
+            if (validLength > 0) {
+              var avg = validMeasures/validLength
+              plotNational.push(avg)
+              if (Math.floor(parseInt(j, 10) / 1000) == stateId)
+                  plotState.push(avg);
+              if (j == fips) {
+                countyValue = avg;
+              }
+            }  
+          }
+         }
+      } else {
+        for (var i in plotData) {
+          if (fieldId == plotData[i].fips) {
 
-        if (countyValue == undefined) {
-            document.getElementById("outputFips").innerHTML = "Not a valid fips";
-            document.getElementById("outputFips").style.color = "#ff0000";
-
-        } else if (countyValue == "") {
-            document.getElementById("outputFips").innerHTML = "No data for this county";
-            document.getElementById("outputFips").style.color = "#ff0000";
-        } else {
-            document.getElementById("outputFips").innerHTML = "";
+            for(var j in plotData[i]) {
+              if (j != "fips" && plotData[i][j] != "") {
+                plotNational.push(parseFloat(plotData[i][j]));
+                if (Math.floor(parseInt(j, 10) / 1000) == stateId)
+                  plotState.push(parseFloat(plotData[i][j]));
+              }
+              if (j == fips) {
+                countyValue = plotData[i][j];
+              }
+            }
+          }
         }
+      }
+
+      console.log(plotNational)
+
+      if (countyValue == undefined) {
+        document.getElementById("outputFips").innerHTML = "Not a valid fips";
+        document.getElementById("outputFips").style.color = "#ff0000";
+
+      } else if (countyValue == "") {
+        document.getElementById("outputFips").innerHTML = "No data for this county";
+        document.getElementById("outputFips").style.color = "#ff0000";
+      } else {
+        document.getElementById("outputFips").innerHTML = "";
+      }
         // console.log(stateId)
 
         var traceNational = {
-            x: plotNational,
-            type: 'histogram',
-            name: 'National histogram'
+          x: plotNational,
+          type: 'histogram',
+          name: 'National histogram'
         };
         var layout_nation = {title: "National distribution: " + field_des};
         var dataNational = [traceNational];
         Plotly.newPlot('divNational',dataNational , layout_nation, {showSendToCloud: true});
         // console.log(plotState)
         var traceState = {
-            x: plotState,
-            type: 'histogram',
-            name: 'State histogram',
+          x: plotState,
+          type: 'histogram',
+          name: 'State histogram',
             // xbins: {
             //     end: 1,
             //     size: 0.015,
             //     start: 0
             // }
 
-        };
-        var dataState = [traceState];
-        var layout_state = {title: "State distribution: " + field_des};
+          };
+          var dataState = [traceState];
+          var layout_state = {title: "State distribution: " + field_des};
 
-        if (countyValue != undefined) {
+          if (countyValue != undefined) {
             document.getElementById("divState").hidden = false;
             Plotly.newPlot('divState',dataState , layout_state, {showSendToCloud: true});
-        }
-        else  document.getElementById("divState").hidden = true;
-        if (countyValue != undefined && countyValue != ""){plotCountyLine(countyValue,fips,countyValue);}
-    }
+          }
+          else  document.getElementById("divState").hidden = true;
+          if (countyValue != undefined && countyValue != ""){plotCountyLine(countyValue,fips,countyValue);}
+        } 
 
     function plotCountyLine(countyValue,fips) {
             var state_name;
