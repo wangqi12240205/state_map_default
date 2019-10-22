@@ -313,12 +313,12 @@
           <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PR"    onclick="pushButton(this)">Preparedness and Response</button></td>  <!--  Qi -->
         </tr>
         <tr class="rowButtons">
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PVID"    onclick="pushButton(this)">PVID</button></td>  <!--  Qi -->
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="SC"    onclick="pushButton(this)">Social Cohesion</button></td>  <!--  Qi -->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PVID"    onclick="pushButton(this)">Population Factors</button></td>  <!--  Qi -->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="SC"    onclick="pushButton(this)">Social Capital and Cohesion</button></td>  <!--  Qi -->
         </tr>
         <tr class="rowButtons">
         <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PM_U"    onclick="pushButton(this)">Prevention Mitigation</button></td>
-        <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="IR"    onclick="pushButton(this)">Internal Resources</button></td>
+        <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="IR"    onclick="pushButton(this)">Resources for Recovery</button></td>
         </tr>
         <!--<tr class="rowButtons">-->
           <!--<td class="tdButtons"><button class="button" name="mapSelector" id="IR"    onclick="pushButton(this)">IR</button></td>  &lt;!&ndash;  Qi &ndash;&gt;-->
@@ -348,12 +348,12 @@
           <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PR_hist" value="Preparedness and Response" onclick="changeSelectCopewellButton(this.value)">Preparedness and Response</button></td>  <!--  Qi -->
         </tr>
         <tr class="rowButtons">
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PVID_hist" value="Population Vulnerability Inequality Deprivation" onclick="changeSelectCopewellButton(this.value)">PVID</button></td>  <!--  Qi -->
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="SC_hist" value="Social Cohesion" onclick="changeSelectCopewellButton(this.value)">Social Cohesion</button></td>  <!--  Qi -->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PVID_hist" value="Population Factors" onclick="changeSelectCopewellButton(this.value)">Population Factors</button></td>  <!--  Qi -->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="SC_hist" value="Social Capital and Cohesion" onclick="changeSelectCopewellButton(this.value)">Social Capital and Cohesion</button></td>  <!--  Qi -->
         </tr>
         <tr class="rowButtons">
           <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="PM_U_hist" value="Prevention Mitigation" onclick="changeSelectCopewellButton(this.value)">Prevention Mitigation</button></td>  <!--  Qi -->
-          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="IR_hist" value="Internal Resources" onclick="changeSelectCopewellButton(this.value)">Internal Resources</button></td>  <!--  Qi -->
+          <td class="tdButtons"><button class="btn btn-block" name="mapSelector" id="IR_hist" value="Resources for Recovery" onclick="changeSelectCopewellButton(this.value)">Resources for Recovery</button></td>  <!--  Qi -->
         </tr>
 
       </table>
@@ -1803,7 +1803,7 @@ function iniHist() {
 
   function changeSelectCopewell() {
     copewellOutput = document.getElementById('selectCopewell').value;
-    if (["Community Functioning", "Preparedness and Response", "Internal Resources", "Prevention Mitigation", "Population Vulnerability Inequality Deprivation", "Social Cohesion"].includes(copewellOutput))
+    if (["Community Functioning", "Preparedness and Response", "Resources for Recovery", "Prevention Mitigation", "Population Factors", "Social Capital and Cohesion"].includes(copewellOutput))
       changeSelectEvent();
     else
       // document.getElementById('selectEvent').hidden = false;
@@ -1828,7 +1828,7 @@ function iniHist() {
           domain2018 = bigdomain2018;
       else if (event == "Small event")
           domain2018 = smalldomain2018;
-      if (["Community Functioning", "Preparedness and Response", "Internal Resources", "Prevention Mitigation", "Population Vulnerability Inequality Deprivation", "Social Cohesion"].includes(copewellOutput)) {
+      if (["Community Functioning", "Preparedness and Response", "Resources for Recovery", "Prevention Mitigation", "Population Factors", "Social Capital and Cohesion"].includes(copewellOutput)) {
           document.getElementById('selectEvent').value = "";
           document.getElementById('selectEvent').hidden = true;
           domain2018 = bigdomain2018;

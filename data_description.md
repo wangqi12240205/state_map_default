@@ -1,9 +1,9 @@
 Input values: 
 CF_0: the initial values of Community Functioning 
-IR:      Internal Resources(new input for the model, just like SC,CF,etc)
+IR:      Resources for Recovery(new input for the model, just like SC,CF,etc)
 PR:     Prevention and Mitigation
 PVID:  Population Vulnerability, Inequality, and Deprivation
-SC:      Social cohesion
+SC:      Social Capital and Cohesion
 genericPM: Prevention and Mitigation under uniform event
 hurricanePM: Prevention and Mitigation under hurricane (include the measures of distance to the nearest coast). 
 
