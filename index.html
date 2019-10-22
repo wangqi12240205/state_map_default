@@ -40,7 +40,7 @@
         .defer(function() {d3.json("json/smalldomain2018.json", function(data) {
               smalldomain2018 = data;
           })})
-        .defer(function() {d3.json("json/list_measure.json", function(data) {
+        .defer(function() {d3.json("json/new_list_measure.json", function(data) {
               list_measure = data;
           })})
         .await(iniHist);
@@ -51,7 +51,7 @@
         <!--measures2018 = d3.json("/json/measures2018.json");-->
         <!--bigdomain2018 = d3.json("/json/bigdomain2018.json");-->
         <!--smalldomain2018 = d3.json("/json/smalldomain2018.json");-->
-        <!--list_measure = d3.json("/json/list_measure.json");-->
+        <!--list_measure = d3.json("/json/new_list_measure.json");-->
         <!--console.log(list_measure);-->
     <!--}-->
   </script>
@@ -1684,13 +1684,14 @@ function iniHist() {
           for (var i = 2; i < options.length; i++) {
            measureSet.add(options[i].value );
          }
+         
 
          for (var j in plotData[0]) {
           if (j != "fips") {
             var validMeasures = 0;
             var validLength = 0;
             for (var i in plotData) {
-              if (measureSet.has(i) && plotData[i][j] != "") {
+              if (measureSet.has(plotData[i]['fips']) && plotData[i][j] != "") {
                 validMeasures += parseFloat(plotData[i][j]);
                 validLength += 1;
               }
@@ -1724,7 +1725,7 @@ function iniHist() {
         }
       }
 
-      console.log(plotNational)
+      // console.log(plotNational)
 
       if (countyValue == undefined) {
         document.getElementById("outputFips").innerHTML = "Not a valid fips";
